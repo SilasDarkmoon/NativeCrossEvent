@@ -40,7 +40,7 @@ namespace Capstones.UnityEngineEx.Native
         private static void Init() { }
 #endif
 
-        [UnityEngine.RuntimeInitializeOnLoadMethod]
+        [UnityEngine.RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void OnUnityStart()
         {
             ResManager.AddInitItem(new ResManager.ActionInitItem(ResManager.LifetimeOrders.CrossEvent + 5, Init, null));
