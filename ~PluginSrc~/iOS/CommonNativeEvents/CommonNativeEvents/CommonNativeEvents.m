@@ -66,16 +66,15 @@ static void GetUDID(const char* cate)
     
     NSLog(@"idfa:%@",udid);
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([udid UTF8String]);
+    SetValNSString(udid);
     SetParam(TOKEN_RETS, 0);
-    
 }
 static void GetAppId(const char* cate)
 {
     NSString* appid = [NSBundle mainBundle].bundleIdentifier;
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([appid UTF8String]);
+    SetValNSString(appid);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetAppName(const char* cate)
@@ -83,7 +82,7 @@ static void GetAppName(const char* cate)
     NSString* name = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([name UTF8String]);
+    SetValNSString(name);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetAppVerName(const char* cate)
@@ -91,7 +90,7 @@ static void GetAppVerName(const char* cate)
     NSString* name = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([name UTF8String]);
+    SetValNSString(name);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetAppVerCode(const char* cate)
@@ -99,7 +98,7 @@ static void GetAppVerCode(const char* cate)
     NSString* name = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([name UTF8String]);
+    SetValNSString(name);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetEncryptKey(const char* cate)
@@ -114,10 +113,10 @@ static void GetMetaData(const char* cate)
 {
     GetParam(TOKEN_ARGS, 0);
     NSString* key = [NSString stringWithCString:GetValStr() encoding: NSUTF8StringEncoding];
-    id value =[[NSBundle mainBundle]objectForInfoDictionaryKey:key];
+    id value = [[NSBundle mainBundle]objectForInfoDictionaryKey:key];
     
     
-    if ([value isKindOfClass:[NSString class]]) {
+    if (value && [value isKindOfClass:[NSString class]]) {
         NSLog(@"Info.plist,read:%@,return:%@",key,value);
         
         SetParamCount(TOKEN_RETS, 1);
@@ -130,7 +129,7 @@ static void GetChannel(const char* cate)
     NSString* value =[[NSBundle mainBundle]objectForInfoDictionaryKey:@"CHANNEL"];
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([value UTF8String]);
+    SetValNSString(value);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetSysVersionNum(const char* cate)
@@ -138,7 +137,7 @@ static void GetSysVersionNum(const char* cate)
     NSString* ver = [[UIDevice currentDevice] systemVersion];
     
     SetParamCount(TOKEN_RETS, 1);
-    SetValStr([ver UTF8String]);
+    SetValNSString(ver);
     SetParam(TOKEN_RETS, 0);
 }
 static void GetPhoneType(const char* cate)
@@ -184,9 +183,9 @@ static void GetLang(const char* cate)
     //    NSString *country = [[NSLocale currentLocale] localeIdentifier];
     
     SetParamCount(TOKEN_RETS, 2);
-    SetValStr([language UTF8String]);
+    SetValNSString(language);
     SetParam(TOKEN_RETS, 0);
-    SetValStr([countryCode UTF8String]);
+    SetValNSString(countryCode);
     SetParam(TOKEN_RETS, 1);
     //    SetValStr([country UTF8String]);
     //    SetParam(LETRETS, 2);

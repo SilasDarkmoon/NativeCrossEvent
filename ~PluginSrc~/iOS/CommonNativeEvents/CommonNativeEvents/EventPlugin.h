@@ -39,3 +39,17 @@ void SetValList(int list);
 #define PARAM_TYPE_STRING 3
 #define PARAM_TYPE_LIST 4
 #define PARAM_TYPE_OBJECT 5
+#if __APPLE__
+#import <Foundation/Foundation.h>
+static void SetValNSString(NSString* str)
+{
+    if (str)
+    {
+        SetValStr([str UTF8String]);
+    }
+    else
+    {
+        SetValStr(0);
+    }
+}
+#endif
