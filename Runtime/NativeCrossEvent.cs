@@ -8,7 +8,7 @@ namespace Capstones.UnityEngineEx.Native
 {
     public static class NativeCrossEvents
     {
-#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR && !DUMMY_NATIVE_EVENTS
         private static class NativeImported
         {
             [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -20,7 +20,7 @@ namespace Capstones.UnityEngineEx.Native
             NativeImported.Init_CommonNativeEvents();
         }
 
-#elif UNITY_ANDROID && !UNITY_EDITOR
+#elif UNITY_ANDROID && !UNITY_EDITOR && !DUMMY_NATIVE_EVENTS
         private static class NativeImported
         {
             [DllImport("CommonNativeEvents", CallingConvention = CallingConvention.Cdecl)]
