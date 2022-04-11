@@ -35,6 +35,7 @@ static void GetAppName(const char* cate);
 static void GetAppVerName(const char* cate);
 static void GetAppVerCode(const char* cate);
 static void GetLang(const char* cate);
+NSString* Global_GetIDFV(void);
 
 void Init_CommonNativeEvents()
 {
@@ -71,13 +72,19 @@ static void GetUDID(const char* cate)
     SetValNSString(udid);
     SetParam(TOKEN_RETS, 0);
 }
-NSString* Global_GetIDFV()
+NSString* Global_GetIDFV(void)
 {
-    return nil;
+    NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    return idfv;
 }
 static void GetIDFV(const char* cate)
 {
-
+    NSString* idfv = Global_GetIDFV();
+    
+    NSLog(@"idfv:%@", idfv);
+    SetParamCount(TOKEN_RETS, 1);
+    SetValNSString(idfv);
+    SetParam(TOKEN_RETS, 0);
 }
 static void GetAppId(const char* cate)
 {
@@ -209,6 +216,11 @@ static NSString* idfa()
         return @"5.0-noidfa";
     }
     NSString *aduid = [[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    BOOL result = [@"00000000-0000-0000-0000-000000000000" isEqualToString:aduid];
+    if (result)
+    {
+        return NULL;
+    }
     return aduid;
 }
 static NSString* mac(void)
