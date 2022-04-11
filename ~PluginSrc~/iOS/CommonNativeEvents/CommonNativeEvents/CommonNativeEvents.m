@@ -23,6 +23,7 @@
 #include <sys/sysctl.h>
 
 static void GetUDID(const char* cate);
+static void GetIDFV(const char* cate);
 static void GetEncryptKey(const char* cate);
 static void GetMetaData(const char* cate);
 static void GetChannel(const char* cate);
@@ -38,6 +39,7 @@ static void GetLang(const char* cate);
 void Init_CommonNativeEvents()
 {
     RegHandler("GetUDID", GetUDID);
+    RegHandler("GetIDFV", GetIDFV);
     RegHandler("Get_EncryptKey", GetEncryptKey);
     RegHandler("SDK_GetMetaData",GetMetaData);
     RegHandler("SDK_GetChannel",GetChannel);
@@ -68,6 +70,14 @@ static void GetUDID(const char* cate)
     SetParamCount(TOKEN_RETS, 1);
     SetValNSString(udid);
     SetParam(TOKEN_RETS, 0);
+}
+NSString* Global_GetIDFV()
+{
+    return nil;
+}
+static void GetIDFV(const char* cate)
+{
+
 }
 static void GetAppId(const char* cate)
 {
